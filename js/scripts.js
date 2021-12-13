@@ -4,114 +4,153 @@ const data = [
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'crow',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'dog',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'dove',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'dragon',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'horse',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'hippo',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'fish',
         prefix: 'fa-',
         type: 'animal',
         family: 'fas',
-        color: 'orange'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'carrot',
         prefix: 'fa-',
         type: 'vegetable',
         family: 'fas',
-        color: 'green'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'apple-alt',
         prefix: 'fa-',
         type: 'vegetable',
         family: 'fas',
-        color: 'green'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'lemon',
         prefix: 'fa-',
         type: 'vegetable',
         family: 'fas',
-        color: 'green'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'pepper-hot',
         prefix: 'fa-',
         type: 'vegetable',
         family: 'fas',
-        color: 'green'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'user-astronaut',
         prefix: 'fa-',
         type: 'user',
         family: 'fas',
-        color: 'blue'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'user-graduate',
         prefix: 'fa-',
         type: 'user',
         family: 'fas',
-        color: 'blue'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'user-ninja',
         prefix: 'fa-',
         type: 'user',
         family: 'fas',
-        color: 'blue'
+        color: `${randomColorGenerator()}`
     },
     {
         name: 'user-secret',
         prefix: 'fa-',
         type: 'user',
         family: 'fas',
-        color: 'blue'
+        color: `${randomColorGenerator()}`
     }
 ];
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+// 1 - modificare la struttura dati fornita e valorizzare la proprietà "color" in modo dinamico: generare in modo casuale un codice colore, sapendo che la notazione esadecimale è formata dal simbolo "#" seguito da 6 caratteri alfanumerici compresi tra 0 e 9 e A e F.
+function randomColorGenerator() {
+    const arrayColor = [];
+    for (let index = 0; index < 6; index++) {
+        let element = getRndInteger(0,15);
+        switch (element) {
+            case 10:
+                element = 'A';
+                break;
+            case 11:
+                element = 'B';
+                break;
+            case 12:
+                element = 'C';
+                break;
+            case 13:
+                element = 'D';
+                break;
+            case 14:
+                element = 'E';
+                break;
+            case 15:
+                element = 'F';
+                break;
+            default:
+                break;
+        }  
+        arrayColor.push(element);
+    }
+    let fullColor = '#';
+    arrayColor.forEach(element => {
+        fullColor += element
+    });
+    // console.log(fullColor);
+    return fullColor;
+}
 //     Milestone 2
 // Ciascuna icona ha una proprietà "color": utilizzare questa proprietà per visualizzare le icone del colore corrispondente.
 function colorApply({color},boxNum) {
@@ -129,7 +168,7 @@ function createOptions(type,types) {
     }
     function displayNoneItem(displaynoneItem) {
         const node = document.querySelectorAll(`.${displaynoneItem}`);
-    node.forEach(element => {
+        node.forEach(element => {
         element.classList.add('d-none');
     });
 }
@@ -159,17 +198,19 @@ function init(container,data) {
     select.addEventListener ('change',function (){
         resetDisplay();
         const selected = this.value;
-        let node;
         switch (selected) {
+            case 'all':
+                resetDisplay();
+                break;
             case 'animal':
                 displayNoneItem('type--vegetable');
                 displayNoneItem('type--user');
                 break;
-                case 'vegetable':
-                    displayNoneItem('type--animal');
+            case 'vegetable':
+                displayNoneItem('type--animal');
                 displayNoneItem('type--user');
                 break;
-                case 'user':
+            case 'user':
                 displayNoneItem('type--vegetable');
                 displayNoneItem('type--animal');
                 break;
@@ -177,9 +218,6 @@ function init(container,data) {
                 console.log('default');
                 break;
         }
-        // for (let index = 0; index < del.length; index++) {
-        //     const delItem = del[index];
-        // }
     });
 }
 // acquisisco container
@@ -192,7 +230,6 @@ init(container,data);
 
 
 // BONUS
-// 1 - modificare la struttura dati fornita e valorizzare la proprietà "color" in modo dinamico: generare in modo casuale un codice colore, sapendo che la notazione esadecimale è formata dal simbolo "#" seguito da 6 caratteri alfanumerici compresi tra 0 e 9 e A e F.
 // 2 - popolare le options della select della milestone 3 dinamicamente.
 // Consigli del giorno
 // Come sempre, iniziamo prima di tutto dall'analisi e comprensione della consegna. Scomponiamo il problema in micro-passaggi logici che solamente in un secondo momento trasformeremo in codice.
