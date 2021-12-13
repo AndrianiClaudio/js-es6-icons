@@ -119,13 +119,18 @@ const data = [
 // stampo template div con all'interno ...classi f.a. = fas fa-...
 const container = document.querySelector('.container');
 data.forEach(element => {
-    console.log(element.name); //nome icona
+    // console.log(element.name); //nome icona
     // composizione icona <i class = '$famyily .$prefix+$name'
-    container.innerHTML += `
+    const iconClass = `${element.family} ${element.prefix}${element.name}`;//icona completa
+    // console.log(iconClass);
+    //template box per icona e nome icona
+    const template = `
     <div>
-        <i class = '${element.family} ${element.prefix}${element.name}'>
+        ${element.name} - <i class = '${iconClass}'>
     </div>`;
-    //icona completa
+    //stampa a schermo del template
+    // container.innerHTML += template;
+    container.innerHTML += template;
 });
 
 
