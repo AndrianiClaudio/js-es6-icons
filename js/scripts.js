@@ -112,34 +112,38 @@ const data = [
         color: 'blue'
     }
 ];
-// Milestone 1
-// Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
-function colorApply(element,boxNum) {
+//     Milestone 2
+// Ciascuna icona ha una proprietà "color": utilizzare questa proprietà per visualizzare le icone del colore corrispondente.
+function colorApply({color},boxNum) {
     const box = document.querySelector(`.box--${boxNum}`);
     const icon = box.querySelector('i');
-    icon.style.color = element.color;
+    icon.style.color = color;
 }
-function init(container) {
-    data.forEach((element, index) => { 
-        //classe icona
-        const iconClass = `${element.family} ${element.prefix}${element.name}`;
-        //template box per icona e nome icona
-        const template = `<div class = 'box--${index}'>${element.name} - <i class = '${iconClass}'></div>`;
-        //stampa a schermo del template
+// Milestone 1
+// Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
+function init(container,data) {
+    const types = [];
+    data.forEach(({family,prefix,name,type}, index) => {
+        const iconClass = `${family} ${prefix}${name}`;
+        const template = `<div class = 'box--${index}'>${name} - <i class = '${iconClass}'></div>`;
         container.innerHTML += template;
-        colorApply(element,index);
-     })
+        colorApply(data[index],index);
+
+        const select = document.getElementById('select-type');
+        if(!types.includes(type)) {
+            types.push(type);
+            const option = document.createElement('option');
+            option.value = type;
+            option.innerHTML = type;
+            select.appendChild(option);
+        }
+    })
 }
 // acquisisco container
 const container = document.querySelector('.container');
 
 //MILESTONE 1
-init(container);
-
-//     Milestone 2
-// Ciascuna icona ha una proprietà "color": utilizzare questa proprietà per visualizzare le icone del colore corrispondente.
-
-
+init(container,data);
 //     Milestone 3
 // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone(animal, vegetable, user).Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
 
