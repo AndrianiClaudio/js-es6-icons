@@ -114,25 +114,27 @@ const data = [
 ];
 // Milestone 1
 // Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
-// STRUTTURA DATI: array di oggetti {name, prefix, type, famil, color}
-// scorro struttra dati
-// stampo template div con all'interno ...classi f.a. = fas fa-...
+function colorApply(element,boxNum) {
+    const box = document.querySelector(`.box--${boxNum}`);
+    const icon = box.querySelector('i');
+    icon.style.color = element.color;
+}
+function init(container) {
+    data.forEach((element, index) => { 
+        //classe icona
+        const iconClass = `${element.family} ${element.prefix}${element.name}`;
+        //template box per icona e nome icona
+        const template = `<div class = 'box--${index}'>${element.name} - <i class = '${iconClass}'></div>`;
+        //stampa a schermo del template
+        container.innerHTML += template;
+        colorApply(element,index);
+     })
+}
+// acquisisco container
 const container = document.querySelector('.container');
-data.forEach(element => {
-    // console.log(element.name); //nome icona
-    // composizione icona <i class = '$famyily .$prefix+$name'
-    const iconClass = `${element.family} ${element.prefix}${element.name}`;//icona completa
-    // console.log(iconClass);
-    //template box per icona e nome icona
-    const template = `
-    <div>
-        ${element.name} - <i class = '${iconClass}'>
-    </div>`;
-    //stampa a schermo del template
-    // container.innerHTML += template;
-    container.innerHTML += template;
-});
 
+//MILESTONE 1
+init(container);
 
 //     Milestone 2
 // Ciascuna icona ha una proprietà "color": utilizzare questa proprietà per visualizzare le icone del colore corrispondente.
