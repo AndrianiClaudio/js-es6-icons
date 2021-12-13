@@ -119,33 +119,74 @@ function colorApply({color},boxNum) {
     const icon = box.querySelector('i');
     icon.style.color = color;
 }
+function createOptions(type,types) {
+        const select = document.getElementById('select-type');
+        types.push(type);
+        const option = document.createElement('option');
+        option.value = type;
+        option.innerHTML = type;
+        select.appendChild(option);
+    }
+    function displayNoneItem(displaynoneItem) {
+        const node = document.querySelectorAll(`.${displaynoneItem}`);
+    node.forEach(element => {
+        element.classList.add('d-none');
+    });
+}
+function resetDisplay() {
+    let actualDnone = document.querySelectorAll('.d-none');
+    actualDnone.forEach(element => {
+        element.classList.remove('d-none');
+    });
+}
 // Milestone 1
 // Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
 function init(container,data) {
     const types = [];
     data.forEach(({family,prefix,name,type}, index) => {
         const iconClass = `${family} ${prefix}${name}`;
-        const template = `<div class = 'box--${index}'>${name} - <i class = '${iconClass}'></div>`;
+        const template = `<div class = 'box--${index} type--${type}'>${name} - <i class = '${iconClass}'></div>`;
         container.innerHTML += template;
+        // milestone 2
         colorApply(data[index],index);
-
-        const select = document.getElementById('select-type');
-        if(!types.includes(type)) {
-            types.push(type);
-            const option = document.createElement('option');
-            option.value = type;
-            option.innerHTML = type;
-            select.appendChild(option);
+        if (!types.includes(type)) {
+            createOptions(type,types);
         }
-    })
+    });
+    const select = document.getElementById('select-type');
+    //     Milestone 3
+    // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone(animal, vegetable, user).Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
+    select.addEventListener ('change',function (){
+        resetDisplay();
+        const selected = this.value;
+        let node;
+        switch (selected) {
+            case 'animal':
+                displayNoneItem('type--vegetable');
+                displayNoneItem('type--user');
+                break;
+                case 'vegetable':
+                    displayNoneItem('type--animal');
+                displayNoneItem('type--user');
+                break;
+                case 'user':
+                displayNoneItem('type--vegetable');
+                displayNoneItem('type--animal');
+                break;
+            default:
+                console.log('default');
+                break;
+        }
+        // for (let index = 0; index < del.length; index++) {
+        //     const delItem = del[index];
+        // }
+    });
 }
 // acquisisco container
 const container = document.querySelector('.container');
 
 //MILESTONE 1
 init(container,data);
-//     Milestone 3
-// Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone(animal, vegetable, user).Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
 
 
 
