@@ -14,7 +14,7 @@ body {
     font-size: 100%;
 }
 
-.d-none {
+.box.d-none {
     display: none;
 }
 
@@ -37,4 +37,31 @@ select {
 }
 .main {
     background-color: rgb(var(--main-bg-color));
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    align-content: space-around;
+    justify-content: flex-start;
+    min-height: 800px;
+    padding: 1rem;
+}
+.box {
+    background-color: white;
+    width: calc(20% - 4rem);
+    min-width: 200px;
+    height: 110px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+}
+.box > i {
+    font-size: 2.5rem;
+}
+.icon-name {
+    text-transform: uppercase;
 }

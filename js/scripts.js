@@ -200,7 +200,11 @@ function init(container,data) {
     const types = [];
     data.forEach(({family,prefix,name,type}, index) => {
         const iconClass = `${family} ${prefix}${name}`;
-        const template = `<div class = 'box box--${index} type--${type}'>${name} - <i class = '${iconClass}'></div>`;
+        const template = `
+        <div class = 'box box--${index} type--${type}'>
+            <i class = '${iconClass}'></i>
+            <span class='icon-name'>${name}</span>
+        </div>`;
         container.innerHTML += template;
         // milestone 2
         colorApply(data[index],index);
