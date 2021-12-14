@@ -159,18 +159,17 @@ function colorApply({color},boxNum) {
     icon.style.color = color;
 }
 function createOptions(type,types) {
-        const select = document.getElementById('select-type');
-        types.push(type);
-        const option = document.createElement('option');
-        option.value = type;
-        option.innerHTML = type;
-        select.appendChild(option);
-    }
-    function displayNoneItem(displaynoneItem) {
-        const node = document.querySelectorAll(`.${displaynoneItem}`);
-        node.forEach(element => {
+    const select = document.getElementById('select-type');
+    types.push(type);
+    const option = document.createElement('option');
+    option.value = type;
+    option.innerHTML = type;
+    select.appendChild(option);
+}
+function displayNoneItem(displaynoneItem) {
+    displaynoneItem.forEach(element => {
         element.classList.add('d-none');
-    });
+    }); 
 }
 function resetDisplay() {
     let actualDnone = document.querySelectorAll('.d-none');
@@ -178,13 +177,30 @@ function resetDisplay() {
         element.classList.remove('d-none');
     });
 }
+function getElementByTypes() {
+    const boxes = [];
+    //acquisisco tuti i box del mi container
+    document.querySelectorAll('.box').forEach(element => {
+        boxes.push(element);
+    });
+    const not_animals = boxes.filter(element => {
+        return element.classList[2] != 'type--animal';
+    });
+    const not_vegetables = boxes.filter(element => {
+        return element.classList[2] != 'type--vegetable';
+    });
+    const not_users = boxes.filter(element => {
+        return element.classList[2] != 'type--user';
+    });
+    return [not_animals, not_vegetables, not_users];
+}
 // Milestone 1
 // Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
 function init(container,data) {
     const types = [];
     data.forEach(({family,prefix,name,type}, index) => {
         const iconClass = `${family} ${prefix}${name}`;
-        const template = `<div class = 'box--${index} type--${type}'>${name} - <i class = '${iconClass}'></div>`;
+        const template = `<div class = 'box box--${index} type--${type}'>${name} - <i class = '${iconClass}'></div>`;
         container.innerHTML += template;
         // milestone 2
         colorApply(data[index],index);
@@ -197,22 +213,22 @@ function init(container,data) {
     // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone(animal, vegetable, user).Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
     select.addEventListener ('change',function (){
         resetDisplay();
+        const [not_animals,not_vegetables,not_users] = getElementByTypes();
         const selected = this.value;
         switch (selected) {
             case 'all':
                 resetDisplay();
                 break;
             case 'animal':
-                displayNoneItem('type--vegetable');
-                displayNoneItem('type--user');
+                displayNoneItem(not_animals);
+
                 break;
             case 'vegetable':
-                displayNoneItem('type--animal');
-                displayNoneItem('type--user');
+                displayNoneItem(not_vegetables);
+                
                 break;
             case 'user':
-                displayNoneItem('type--vegetable');
-                displayNoneItem('type--animal');
+                displayNoneItem(not_users);
                 break;
             default:
                 console.log('default');
