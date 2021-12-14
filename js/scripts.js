@@ -178,25 +178,19 @@ function resetDisplay() {
         element.classList.remove('d-none');
     });
 }
-function getElementByTypes() {
+function getElementByTypes(target_value) {
     const boxes = [];
     //acquisisco tuti i box del mi container
     document.querySelectorAll('.box').forEach(element => {
         boxes.push(element);
     });
-    const not_animals = boxes.filter(element => {
-        return element.classList[2] != 'type--animal';
+    return boxes.filter(element => {
+        return element.classList[2] !=  `type--${target_value}`;
     });
-    const not_vegetables = boxes.filter(element => {
-        return element.classList[2] != 'type--vegetable';
-    });
-    const not_users = boxes.filter(element => {
-        return element.classList[2] != 'type--user';
-    });
-    return [not_animals, not_vegetables, not_users];
 }
 // Milestone 1
 // Partendo dalla struttura dati fornita, visualizzare in pagina un box per ogni icona, in cui è presente il nome dell'icona e l'icona stessa.
+
 function init(container,data) {
     const types = [];
     data.forEach(({family,prefix,name,type}, index) => {
@@ -216,27 +210,11 @@ function init(container,data) {
     const select = document.getElementById('select-type');
     //     Milestone 3
     // Aggiungere alla pagina una select in cui le options corrispondono ai vari tipi di icone(animal, vegetable, user).Quando l'utente seleziona un tipo dalla select, visualizzare solamente le icone corrispondenti.
-    select.addEventListener ('change',function (){
+    select.addEventListener ('change',function (event){
         resetDisplay();
-        const [not_animals,not_vegetables,not_users] = getElementByTypes();
-        const selected = this.value;
-        switch (selected) {
-            case 'all':
-                resetDisplay();
-                break;
-            case 'animal':
-                displayNoneItem(not_animals);
-                break;
-            case 'vegetable':
-                displayNoneItem(not_vegetables);
-                
-                break;
-            case 'user':
-                displayNoneItem(not_users);
-                break;
-            default:
-                console.log('default');
-                break;
+        if (event.target.value != 'all') {
+            const to_hide = getElementByTypes(event.target.value);
+            displayNoneItem(to_hide);
         }
     });
 }
