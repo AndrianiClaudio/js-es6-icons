@@ -1,3 +1,40 @@
+:root {
+    --select-container-bg-color: 41, 177, 221;
+    --main-bg-color: 221, 221, 221;
+    --header-title-color: 41, 177, 221;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+}
+
+body {
+    font-size: 100%;
+}
+
 .d-none {
     display: none;
+}
+
+header.header {
+    padding: 1rem 0 0.1rem 1rem ;
+}
+h1 {
+    color: rgb(var(--header-title-color)); 
+}
+
+.select-container {
+    background-color: rgb(var(--select-container-bg-color));
+    text-align: center;
+    padding: 1rem 0;
+    color: white;
+}
+select {
+    background-color: white;
+    border: 1px solid darkgrey;
+}
+.main {
+    background-color: rgb(var(--main-bg-color));
 }
