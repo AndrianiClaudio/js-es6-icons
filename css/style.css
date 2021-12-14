@@ -6,7 +6,7 @@
 
 * {
     box-sizing: border-box;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
 }
 
@@ -43,16 +43,15 @@ select {
     display: flex;
     flex-wrap: wrap;
     gap: 4rem;
-    align-content: space-around;
+    align-content: space-between;
     justify-content: flex-start;
     min-height: 800px;
     padding: 1rem;
 }
 .box {
     background-color: white;
-    width: calc(20% - 4rem);
-    min-width: 200px;
-    height: 110px;
+    min-width: 180px;
+    min-height: 110px;
     align-items: center;
     justify-content: center;
     display: flex;
