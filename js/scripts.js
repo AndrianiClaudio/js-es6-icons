@@ -169,7 +169,8 @@ function createOptions(type,types) {
 function displayNoneItem(displaynoneItem) {
     displaynoneItem.forEach(element => {
         element.classList.add('d-none');
-    }); 
+    });
+    container.style = 'align-content: flex-start;'; 
 }
 function resetDisplay() {
     let actualDnone = document.querySelectorAll('.d-none');
@@ -225,7 +226,6 @@ function init(container,data) {
                 break;
             case 'animal':
                 displayNoneItem(not_animals);
-
                 break;
             case 'vegetable':
                 displayNoneItem(not_vegetables);
